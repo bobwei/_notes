@@ -94,10 +94,10 @@ module.exports = React.createClass({
             paddingTop: 0,
           }}
         >
-          {pathname === '/' &&
+          {pathname === prefixLink('/') &&
             <MainPage />
           }
-          {pathname !== '/' &&
+          {pathname !== prefixLink('/') &&
             this.props.children
           }
         </Container>
