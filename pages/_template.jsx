@@ -10,10 +10,11 @@ import { config } from 'config';
 
 import MainPage from 'components/MainPage';
 
-// Import styles.
-import 'css/main.css';
+import 'css/main.scss';
 import 'css/github.css';
 import themeStyles from 'css/theme.module.scss';
+// to allow :active styles to work in your CSS on a page in Mobile Safari
+document.addEventListener('touchstart', () => {}, true);
 
 const { rhythm, adjustFontSizeTo } = typography;
 
@@ -25,7 +26,7 @@ module.exports = React.createClass({
   },
   render () {
     const { location: { pathname } } = this.props;
-    const notesActive = includes(pathname, '/notes/');
+    const notesActive = includes(pathname, prefixLink('/notes/'));
 
     return (
       <div>

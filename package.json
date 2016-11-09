@@ -25,9 +25,12 @@
   "license": "MIT",
   "main": "n/a",
   "scripts": {
+    "start": "npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm run develop",
     "develop": "gatsby develop",
-    "build": "gatsby build",
-    "deploy": "gatsby build --prefix-links && gh-pages -d public"
+    "build": "gatsby build && cp CNAME public/",
+    "deploy:prefix": "gatsby build --prefix-links && gh-pages -d public",
+    "deploy": "gatsby build && gh-pages -d public"
   }
 }

@@ -1,0 +1,8 @@
+a {
+  color: rgb(228,129,119);
+  text-decoration: none;
+
+  &:hover, &:active {
+    opacity: 0.7;
+  }
+}
