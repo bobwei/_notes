@@ -1,6 +1,6 @@
-siteTitle="AlphabetJS"
-baseColor = "#884499"
-linkPrefix = "/gatsby-starter-documentation"
+siteTitle="Notes"
+baseColor = "#db594c"
+linkPrefix = "/notes"
 docPages = [
   "/docs/",
   "/docs/getting-started/",

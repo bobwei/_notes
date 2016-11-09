@@ -1,18 +1,21 @@
-import React from 'react'
-import { Link } from 'react-router'
-import { Container, Grid, Span } from 'react-responsive-grid'
-import { prefixLink } from 'gatsby-helpers'
-import includes from 'underscore.string/include'
-import { colors, activeColors } from 'utils/colors'
+import React from 'react';
+import { Link } from 'react-router';
+import { Container, Grid, Span } from 'react-responsive-grid';
+import { prefixLink } from 'gatsby-helpers';
+import includes from 'underscore.string/include';
+import { colors, activeColors, navBarColor } from 'utils/colors';
 
-import typography from 'utils/typography'
-import { config } from 'config'
+import typography from 'utils/typography';
+import { config } from 'config';
+
+import MainPage from 'components/MainPage';
 
 // Import styles.
-import 'css/main.css'
-import 'css/github.css'
+import 'css/main.css';
+import 'css/github.css';
+import themeStyles from 'css/theme.module.scss';
 
-const { rhythm, adjustFontSizeTo } = typography
+const { rhythm, adjustFontSizeTo } = typography;
 
 module.exports = React.createClass({
   propTypes () {
@@ -21,14 +24,14 @@ module.exports = React.createClass({
     }
   },
   render () {
-    const docsActive = includes(this.props.location.pathname, '/docs/')
-    const examplesActive = includes(this.props.location.pathname, '/examples/')
+    const { location: { pathname } } = this.props;
+    const notesActive = includes(pathname, '/notes/');
 
     return (
       <div>
         <div
+          className={themeStyles.navBarBgColor}
           style={{
-            background: colors.bg,
             color: colors.fg,
             marginBottom: rhythm(1.5),
           }}
@@ -55,7 +58,7 @@ module.exports = React.createClass({
                   to={prefixLink('/')}
                   style={{
                     textDecoration: 'none',
-                    color: colors.fg,
+                    color: navBarColor,
                     fontSize: adjustFontSizeTo('25.5px').fontSize,
                   }}
                 >
@@ -63,22 +66,11 @@ module.exports = React.createClass({
                 </Link>
               </Span>
               <Span columns={8} last>
-                <a
-                  style={{
-                    float: 'right',
-                    color: colors.fg,
-                    textDecoration: 'none',
-                    marginLeft: rhythm(1/2),
-                  }}
-                  href="https://github.com/gatsbyjs/gatsby"
-                >
-                  Github
-                </a>
                 <Link
-                  to={prefixLink('/examples/')}
+                  to={prefixLink('/notes/')}
                   style={{
-                    background: examplesActive ? activeColors.bg : colors.bg,
-                    color: examplesActive ? activeColors.fg : colors.fg,
+                    background: notesActive ? activeColors.bg : 'transparent',
+                    color: navBarColor,
                     float: 'right',
                     textDecoration: 'none',
                     paddingLeft: rhythm(1/2),
@@ -89,24 +81,7 @@ module.exports = React.createClass({
                     marginTop: rhythm(-1),
                   }}
                 >
-                  Examples
-                </Link>
-                <Link
-                  to={prefixLink('/docs/')}
-                  style={{
-                    background: docsActive ? activeColors.bg : colors.bg,
-                    color: docsActive ? activeColors.fg : colors.fg,
-                    float: 'right',
-                    textDecoration: 'none',
-                    paddingLeft: rhythm(1/2),
-                    paddingRight: rhythm(1/2),
-                    paddingBottom: rhythm(3/4),
-                    marginBottom: rhythm(-1),
-                    paddingTop: rhythm(1),
-                    marginTop: rhythm(-1),
-                  }}
-                >
-                  Documentation
+                  Notes
                 </Link>
               </Span>
             </Grid>
@@ -119,7 +94,12 @@ module.exports = React.createClass({
             paddingTop: 0,
           }}
         >
-          {this.props.children}
+          {pathname === '/' &&
+            <MainPage />
+          }
+          {pathname !== '/' &&
+            this.props.children
+          }
         </Container>
       </div>
     )

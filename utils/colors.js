@@ -11,3 +11,5 @@ const darker = chroma(config.baseColor).darken(10).hex()
 export const activeColors = colorPairsPicker(darker, {
   contrast: 7,
 })
+
+export const navBarColor = 'white';
