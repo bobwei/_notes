@@ -67,7 +67,7 @@ module.exports = React.createClass({
               </Span>
               <Span columns={8} last>
                 <Link
-                  to={prefixLink('/notes/')}
+                  to={prefixLink(config.notePages[0])}
                   style={{
                     background: notesActive ? activeColors.bg : 'transparent',
                     color: navBarColor,
