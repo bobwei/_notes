@@ -4,6 +4,7 @@ import { Container, Grid, Span } from 'react-responsive-grid';
 import { prefixLink } from 'gatsby-helpers';
 import includes from 'underscore.string/include';
 import { colors, activeColors, navBarColor } from 'utils/colors';
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 
 import typography from 'utils/typography';
 import { config } from 'config';
@@ -13,8 +14,10 @@ import MainPage from 'components/MainPage';
 import 'css/main.scss';
 import 'css/github.css';
 import themeStyles from 'css/theme.module.scss';
-// to allow :active styles to work in your CSS on a page in Mobile Safari
-document.addEventListener('touchstart', () => {}, true);
+if (canUseDOM) {
+  // to allow :active styles to work in your CSS on a page in Mobile Safari
+  document.addEventListener('touchstart', () => {}, true);
+}
 
 const { rhythm, adjustFontSizeTo } = typography;
 
