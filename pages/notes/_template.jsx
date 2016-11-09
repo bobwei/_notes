@@ -1,12 +1,15 @@
-import React from 'react'
-import { Link } from 'react-router'
-import Breakpoint from 'components/Breakpoint'
-import find from 'lodash/find'
-import { prefixLink } from 'gatsby-helpers'
-import { config } from 'config'
+import React from 'react';
+import { Link } from 'react-router';
+import Breakpoint from 'components/Breakpoint';
+import find from 'lodash/find';
+import { prefixLink } from 'gatsby-helpers';
+import { config } from 'config';
+import classnames from 'classnames';
 
-import typography from 'utils/typography'
-const { rhythm } = typography
+import notesStyles from 'css/notes.module.scss';
+
+import typography from 'utils/typography';
+const { rhythm } = typography;
 
 module.exports = React.createClass({
   propTypes () {
@@ -52,6 +55,7 @@ module.exports = React.createClass({
             style={{
               textDecoration: 'none',
             }}
+            className={classnames({ [notesStyles.active]: isActive })}
           >
             {isActive ? <strong>{child.title}</strong> : child.title}
           </Link>
@@ -64,6 +68,7 @@ module.exports = React.createClass({
           mobile
         >
           <div
+            className={notesStyles.sideBar}
             style={{
               overflowY: 'auto',
               paddingRight: `calc(${rhythm(1/2)} - 1px)`,
