@@ -1,5 +1,6 @@
-# gatsby-starter-documentation
-Starter for building documentation site with GatsbyJS
+# Notes
 
-Install this starter (assuming Gatsby is installed) by running from your CLI:
-`gatsby new gatsby-documentation-site https://github.com/gatsbyjs/gatsby-starter-documentation`
+Static sites for curating inspiring articles, recording thoughts, ...etc.
+
+----
+Powered by [Gatsby](https://github.com/gatsbyjs/gatsby)
