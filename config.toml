@@ -2,5 +2,6 @@ siteTitle="Notes"
 baseColor = "#db594c"
 linkPrefix = "/notes"
 notePages = [
-  "/notes/static-site-generator/",
+  '/notes/utility-snippets/',
+  '/notes/static-site-generator/',
 ]

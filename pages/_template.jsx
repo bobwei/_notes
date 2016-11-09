@@ -15,7 +15,7 @@ import 'css/main.scss';
 import 'css/github.css';
 import themeStyles from 'css/theme.module.scss';
 if (canUseDOM) {
-  // to allow :active styles to work in your CSS on a page in Mobile Safari
+  // Enable :active styles to work on mobile Safari
   document.addEventListener('touchstart', () => {}, true);
 }
 
