@@ -34,7 +34,7 @@ const Page = () => (
           onChange={throttle(execute, 1000)}
         />
       </div>
-      <div className={styles.previewComponent} id="mount-point" />
+      <div className={`${styles.previewComponent} mount-point`} />
     </div>
   </DocumentTitle>
 );

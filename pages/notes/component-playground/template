@@ -3,7 +3,11 @@ const Comp = () => (
   <div>Hello World</div>
 );
 
-ReactDOM.render(
-  <Comp />,
-  document.getElementById('mount-point')
-);
+/* for responsiveness reason */
+const doms = document.getElementsByClassName('mount-point');
+for (let i = 0; i < doms.length; i++) {
+  ReactDOM.render(
+    <Comp />,
+    doms[i]
+  );
+}
