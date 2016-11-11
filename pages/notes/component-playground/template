@@ -1,0 +1,9 @@
+/* global React, ReactDOM */
+const Comp = () => (
+  <div>Hello World</div>
+);
+
+ReactDOM.render(
+  <Comp />,
+  document.getElementById('mount-point')
+);

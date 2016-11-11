@@ -1,9 +1,18 @@
+/* eslint-disable no-eval, import/no-unresolved, import/extensions */
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 import Codemirror from 'react-codemirror';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/solarized.css';
+import { throttle } from 'lodash/function';
+import compose from 'recompose/compose';
+import lifecycle from 'recompose/lifecycle';
+import setStatic from 'recompose/setStatic';
+
+import { execute } from 'utils/code';
+import codeTemplate from 'raw!./template';
+import styles from './index.module.scss';
 
 const Page = () => (
   <DocumentTitle title={Page.metadata().title}>
@@ -21,19 +30,37 @@ const Page = () => (
             tabSize: 2,
             autofocus: true,
           }}
-          onChange={(code) => {
-            console.log(code);
-          }}
+          value={codeTemplate}
+          onChange={throttle(execute, 1000)}
         />
       </div>
+      <div className={styles.previewComponent} id="mount-point" />
     </div>
   </DocumentTitle>
 );
 
-Page.metadata = () => {
-  return {
-    title: 'React Component Playground',
-  };
-};
+const Comp = compose(
+  setStatic(
+    'metadata',
+    () => {
+      return {
+        title: 'React Component Playground',
+      };
+    }
+  ),
+  lifecycle({
+    componentDidMount() {
+      execute(codeTemplate);
+    },
+  }),
+  setStatic(
+    'metadata',
+    () => {
+      return {
+        title: 'React Component Playground',
+      };
+    }
+  )
+)(Page);
 
-export default Page;
+export default Comp;
