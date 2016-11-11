@@ -1,8 +1,8 @@
-/* eslint-disable no-eval, import/no-unresolved, import/extensions */
+/* eslint-disable no-eval, import/no-unresolved, import/extensions, global-require */
 import React from 'react';
 import DocumentTitle from 'react-document-title';
 import Codemirror from 'react-codemirror';
-import 'codemirror/mode/javascript/javascript';
+import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/solarized.css';
 import { throttle } from 'lodash/function';
@@ -13,6 +13,10 @@ import setStatic from 'recompose/setStatic';
 import { execute } from 'utils/code';
 import codeTemplate from 'raw!./template';
 import styles from './index.module.scss';
+
+if (canUseDOM) {
+  require('codemirror/mode/javascript/javascript');
+}
 
 const Page = () => (
   <DocumentTitle title={Page.metadata().title}>
