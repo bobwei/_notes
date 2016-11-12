@@ -1,13 +1,11 @@
-/* global React, ReactDOM */
+/* global React, ReactDOM, mountPointId */
+const dom = document.getElementById(mountPointId);
+
 const Comp = () => (
   <div>Hello World</div>
 );
 
-/* for responsiveness reason */
-const doms = document.getElementsByClassName('mount-point');
-for (let i = 0; i < doms.length; i++) {
-  ReactDOM.render(
-    <Comp />,
-    doms[i]
-  );
-}
+ReactDOM.render(
+  <Comp />,
+  dom
+);

@@ -3,12 +3,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { transform } from 'babel-standalone';
 
-export const execute = (code) => {
+export const execute = (defaultScope = {}, code) => {
   const scope = {
+    ...defaultScope,
     React,
     ReactDOM,
   };
-  const scopedCode = `(${Object.keys(scope).join(',')}) => {
+  const params = Object.keys(scope).join(',');
+  const scopedCode = `(${params}) => {
     ${code}
   }`;
   try {
