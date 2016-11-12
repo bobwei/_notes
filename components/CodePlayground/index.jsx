@@ -10,7 +10,7 @@ import lifecycle from 'recompose/lifecycle';
 import defaultProps from 'recompose/defaultProps';
 import withProps from 'recompose/withProps';
 
-import { execute as run } from 'utils/code';
+import { execute as run, defaultScope } from 'utils/code';
 import codeTemplate from 'raw!./template';
 import styles from './index.module.scss';
 
@@ -50,9 +50,13 @@ export default compose(
   }),
   withProps(() => {
     const mountPointId = String(Math.random());
+    const scope = {
+      ...defaultScope,
+      mountPointId,
+    };
     return {
       mountPointId,
-      execute: curry(run, 2)({ mountPointId }),
+      execute: curry(run, 2)(scope),
     };
   }),
   lifecycle({
