@@ -6,6 +6,7 @@ import compose from 'recompose/compose';
 import lifecycle from 'recompose/lifecycle';
 import defaultProps from 'recompose/defaultProps';
 import withProps from 'recompose/withProps';
+import withState from 'recompose/withState';
 
 import { execute as run, defaultScope } from 'utils/code';
 import codeTemplate from 'raw!./template';
@@ -13,7 +14,12 @@ import codeTemplate from 'raw!./template';
 import Editor from './editor';
 import Preview from './preview';
 
-const CodePlayground = ({ codeInitialValue, codemirrorOptions, mountPointId, execute } = {}) => (
+const compiledTemplate = template(codeTemplate);
+const curriedExecute = curry(run, 2);
+
+const CodePlayground = ({
+  codeInitialValue, codemirrorOptions, mountPointId, execute, logs,
+} = {}) => (
   <div>
     <Editor
       codeInitialValue={codeInitialValue}
@@ -22,6 +28,7 @@ const CodePlayground = ({ codeInitialValue, codemirrorOptions, mountPointId, exe
     />
     <Preview
       mountPointId={mountPointId}
+      logs={logs}
     />
   </div>
 );
@@ -36,16 +43,24 @@ export default compose(
       autofocus: true,
     },
   }),
-  withProps(() => {
-    const mountPointId = String(Math.random());
+  withProps(() => ({
+    mountPointId: String(Math.random()),
+  })),
+  withState('logs', 'setLogs', []),
+  withProps(({ setLogs, mountPointId }) => {
     const scope = {
       ...defaultScope,
       mountPointId,
+      console: {
+        log(...args) {
+          setLogs(logs => [...logs, ...args.map(arg => String(arg))]);
+        },
+      },
     };
     return {
       mountPointId,
-      execute: curry(run, 2)(scope),
-      codeInitialValue: template(codeTemplate)({ scope }),
+      execute: curriedExecute(scope),
+      codeInitialValue: compiledTemplate({ scope }),
     };
   }),
   lifecycle({

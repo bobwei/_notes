@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './index.module.scss';
 
-const Preview = ({ mountPointId }) => (
+const Preview = ({ mountPointId, logs }) => (
   <div className={styles.preview}>
     <h4>
       Console.log
@@ -10,7 +10,14 @@ const Preview = ({ mountPointId }) => (
     <div
       id={`${mountPointId}:console.log`}
       className={styles.component}
-    />
+    >
+      {logs.map((log, i) => (
+        <span key={i}>
+          {log}
+          <br />
+        </span>
+      ))}
+    </div>
     <h4>
       Preview
     </h4>
@@ -23,6 +30,7 @@ const Preview = ({ mountPointId }) => (
 
 Preview.propTypes = {
   mountPointId: React.PropTypes.string,
+  logs: React.PropTypes.arrayOf(React.PropTypes.string),
 };
 
 export default Preview;

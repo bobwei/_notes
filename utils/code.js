@@ -6,11 +6,6 @@ import { transform } from 'babel-standalone';
 export const defaultScope = {
   React,
   ReactDOM,
-  console: {
-    log(...args) {
-      console.log('logging: ', args);
-    },
-  },
 };
 
 export const execute = (scope, code) => {

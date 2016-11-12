@@ -5,6 +5,8 @@ import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/solarized.css';
 import { throttle } from 'lodash/function';
+import compose from 'recompose/compose';
+import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 
 import './codemirror.scss';
 
@@ -26,4 +28,6 @@ Editor.propTypes = {
   execute: React.PropTypes.func,
 };
 
-export default Editor;
+export default compose(
+  onlyUpdateForKeys(['codemirrorOptions', 'codeInitialValue']),
+)(Editor);
