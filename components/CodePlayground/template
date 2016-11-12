@@ -1,11 +1,9 @@
-/* global React, ReactDOM, mountPointId */
-const dom = document.getElementById(mountPointId);
-
+/* scope with ${Object.keys(scope).join(', ')} */
 const Comp = () => (
   <div>Hello World</div>
 );
 
 ReactDOM.render(
   <Comp />,
-  dom
+  document.getElementById(mountPointId)
 );

@@ -5,6 +5,7 @@ import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/solarized.css';
 import { throttle, curry } from 'lodash/function';
+import { template } from 'lodash/string';
 import compose from 'recompose/compose';
 import lifecycle from 'recompose/lifecycle';
 import defaultProps from 'recompose/defaultProps';
@@ -39,7 +40,6 @@ const CodePlayground = ({ codeInitialValue, codemirrorOptions, mountPointId, exe
 
 export default compose(
   defaultProps({
-    codeInitialValue: codeTemplate,
     codemirrorOptions: {
       lineNumbers: true,
       mode: 'javascript',
@@ -57,6 +57,7 @@ export default compose(
     return {
       mountPointId,
       execute: curry(run, 2)(scope),
+      codeInitialValue: template(codeTemplate)({ scope }),
     };
   }),
   lifecycle({
