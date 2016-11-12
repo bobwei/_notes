@@ -1,12 +1,14 @@
 .preview {
   margin-top: 20px;
 
-  h3 {
-    margin-bottom: 10px;
+  h4 {
+    margin: 10px 0;
   }
 
   .component {
+    min-height: 46px;
     padding: 10px;
     border: 1px solid #ddd;
+    margin-bottom: 20px;
   }
 }

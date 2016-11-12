@@ -13,8 +13,8 @@ import withProps from 'recompose/withProps';
 
 import { execute as run, defaultScope } from 'utils/code';
 import codeTemplate from 'raw!./template';
-import styles from './index.module.scss';
 import './codemirror.scss';
+import Preview from './preview';
 
 if (canUseDOM) {
   require('codemirror/mode/javascript/javascript');
@@ -27,15 +27,9 @@ const CodePlayground = ({ codeInitialValue, codemirrorOptions, mountPointId, exe
       value={codeInitialValue}
       onChange={throttle(execute, 1000)}
     />
-    <div className={styles.preview}>
-      <h3>
-        Preview
-      </h3>
-      <div
-        id={mountPointId}
-        className={styles.component}
-      />
-    </div>
+    <Preview
+      mountPointId={mountPointId}
+    />
   </div>
 );
 
