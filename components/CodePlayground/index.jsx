@@ -1,10 +1,6 @@
-/* eslint-disable no-eval, import/no-unresolved, import/extensions, global-require */
+/* eslint-disable import/no-unresolved, import/extensions */
 import React from 'react';
-import Codemirror from 'react-codemirror';
-import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/solarized.css';
-import { throttle, curry } from 'lodash/function';
+import { curry } from 'lodash/function';
 import { template } from 'lodash/string';
 import compose from 'recompose/compose';
 import lifecycle from 'recompose/lifecycle';
@@ -13,19 +9,16 @@ import withProps from 'recompose/withProps';
 
 import { execute as run, defaultScope } from 'utils/code';
 import codeTemplate from 'raw!./template';
-import './codemirror.scss';
-import Preview from './preview';
 
-if (canUseDOM) {
-  require('codemirror/mode/javascript/javascript');
-}
+import Editor from './editor';
+import Preview from './preview';
 
 const CodePlayground = ({ codeInitialValue, codemirrorOptions, mountPointId, execute } = {}) => (
   <div>
-    <Codemirror
-      options={codemirrorOptions}
-      value={codeInitialValue}
-      onChange={throttle(execute, 2000)}
+    <Editor
+      codeInitialValue={codeInitialValue}
+      codemirrorOptions={codemirrorOptions}
+      execute={execute}
     />
     <Preview
       mountPointId={mountPointId}
