@@ -5,10 +5,15 @@
     margin: 10px 0;
   }
 
-  .component {
+  .displayBlock {
     min-height: 46px;
     padding: 10px;
     border: 1px solid #ddd;
     margin-bottom: 20px;
+  }
+
+  .logs {
+    max-height: 94px;
+    overflow: auto;
   }
 }

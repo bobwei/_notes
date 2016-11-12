@@ -18,7 +18,7 @@ const Editor = ({ codemirrorOptions, codeInitialValue, execute }) => (
   <Codemirror
     options={codemirrorOptions}
     value={codeInitialValue}
-    onChange={throttle(execute, 2000)}
+    onChange={throttle(execute, 1000)}
   />
 );
 

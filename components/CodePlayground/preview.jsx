@@ -1,4 +1,6 @@
 import React from 'react';
+import compose from 'recompose/compose';
+import lifecycle from 'recompose/lifecycle';
 
 import styles from './index.module.scss';
 
@@ -9,7 +11,7 @@ const Preview = ({ mountPointId, logs }) => (
     </h4>
     <div
       id={`${mountPointId}:console.log`}
-      className={styles.component}
+      className={`${styles.displayBlock} ${styles.logs}`}
     >
       {logs.map((log, i) => (
         <span key={i}>
@@ -23,7 +25,7 @@ const Preview = ({ mountPointId, logs }) => (
     </h4>
     <div
       id={mountPointId}
-      className={styles.component}
+      className={styles.displayBlock}
     />
   </div>
 );
@@ -33,4 +35,12 @@ Preview.propTypes = {
   logs: React.PropTypes.arrayOf(React.PropTypes.string),
 };
 
-export default Preview;
+export default compose(
+  lifecycle({
+    componentDidUpdate() {
+      const { mountPointId } = this.props;
+      const dom = document.getElementById(`${mountPointId}:console.log`);
+      dom.scrollTop = dom.scrollHeight;
+    },
+  })
+)(Preview);
