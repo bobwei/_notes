@@ -1,0 +1,22 @@
+/*
+  disable text auto wrap on mobile safari
+  ref : http://stackoverflow.com/questions/31152421/highlight-js-with-blogger-cant-disable-auto-line-wrap
+*/
+pre, code {
+  white-space: pre;
+  overflow-x: scroll;
+}
+
+.language-js {
+  display: inline-block;
+  overflow-x: scroll;
+  -webkit-text-size-adjust: none;
+}
+
+.CodeMirror {
+  font-size: 16px;
+}
+
+.ReactCodeMirror {
+  border: 1px solid #ddd;
+}

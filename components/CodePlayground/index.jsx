@@ -14,6 +14,7 @@ import withProps from 'recompose/withProps';
 import { execute as run, defaultScope } from 'utils/code';
 import codeTemplate from 'raw!./template';
 import styles from './index.module.scss';
+import './codemirror.scss';
 
 if (canUseDOM) {
   require('codemirror/mode/javascript/javascript');
