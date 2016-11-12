@@ -25,10 +25,15 @@ const CodePlayground = ({ codeInitialValue, codemirrorOptions, mountPointId, exe
       value={codeInitialValue}
       onChange={throttle(execute, 1000)}
     />
-    <div
-      id={mountPointId}
-      className={`${styles.previewComponent} mount-point`}
-    />
+    <div className={styles.preview}>
+      <h3>
+        Preview
+      </h3>
+      <div
+        id={mountPointId}
+        className={styles.component}
+      />
+    </div>
   </div>
 );
 
