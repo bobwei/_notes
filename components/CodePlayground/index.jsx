@@ -53,7 +53,7 @@ export default compose(
       mountPointId,
       console: {
         log(...args) {
-          setLogs(logs => [...logs, ...args.map(arg => String(arg))]);
+          setLogs(logs => [...logs, args.map(arg => String(arg)).join(' ')]);
         },
       },
     };
