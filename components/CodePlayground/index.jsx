@@ -17,14 +17,14 @@ const compiledTemplate = template(codeTemplate);
 const curriedExecute = curry(run, 2);
 
 const CodePlayground = ({
-  code, execute,
+  code, onChange,
   mountPointId,
   logs,
 } = {}) => (
   <div>
     <Editor
       code={code}
-      execute={execute}
+      onChange={onChange}
     />
     <Preview
       mountPointId={mountPointId}
@@ -54,10 +54,17 @@ export default compose(
       code: compiledTemplate({ scope }),
     };
   }),
+  withState('code', 'setCode', ({ code }) => code),
+  withProps(({ execute, setCode }) => ({
+    onChange: (code) => {
+      setCode(code);
+      execute(code);
+    },
+  })),
   lifecycle({
     componentDidMount() {
-      const { execute, codeInitialValue } = this.props;
-      execute(codeInitialValue);
+      const { execute, code } = this.props;
+      execute(code);
     },
   }),
 )(CodePlayground);

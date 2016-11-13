@@ -6,7 +6,6 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/solarized.css';
 import { throttle } from 'lodash/function';
 import compose from 'recompose/compose';
-import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import withState from 'recompose/withState';
 import withProps from 'recompose/withProps';
 
@@ -18,14 +17,14 @@ if (canUseDOM) {
 }
 
 const Editor = ({
-  codemirrorOptions, code, execute,
+  codemirrorOptions, code, onChange,
   enableLivePreview, toggleLivePreview,
 } = {}) => (
   <div>
     <Codemirror
       options={codemirrorOptions}
       value={code}
-      onChange={execute}
+      onChange={onChange}
     />
     <div className={styles.options}>
       <label>
@@ -39,7 +38,7 @@ const Editor = ({
 Editor.propTypes = {
   codemirrorOptions: React.PropTypes.object,
   code: React.PropTypes.string,
-  execute: React.PropTypes.func,
+  onChange: React.PropTypes.func,
   enableLivePreview: React.PropTypes.bool,
   toggleLivePreview: React.PropTypes.func,
 };
@@ -55,9 +54,8 @@ Editor.defaultProps = {
 };
 
 export default compose(
-  onlyUpdateForKeys(['codemirrorOptions', 'codeInitialValue']),
-  withProps(({ execute }) => ({
-    execute: throttle(execute, 1000),
+  withProps(({ onChange }) => ({
+    onChange: throttle(onChange, 1000),
   })),
   withState('enableLivePreview', 'updateEnableLivePreview', false),
   withProps(({ updateEnableLivePreview }) => ({
