@@ -9,17 +9,26 @@ import compose from 'recompose/compose';
 import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 
 import './codemirror.scss';
+import styles from './index.module.scss';
 
 if (canUseDOM) {
   require('codemirror/mode/javascript/javascript');
 }
 
 const Editor = ({ codemirrorOptions, codeInitialValue, execute }) => (
-  <Codemirror
-    options={codemirrorOptions}
-    value={codeInitialValue}
-    onChange={throttle(execute, 1000)}
-  />
+  <div>
+    <Codemirror
+      options={codemirrorOptions}
+      value={codeInitialValue}
+      onChange={throttle(execute, 1000)}
+    />
+    <div className={styles.options}>
+      <label htmlFor="livepreview">
+        <input type="checkbox" />
+        live preview
+      </label>
+    </div>
+  </div>
 );
 
 Editor.propTypes = {
