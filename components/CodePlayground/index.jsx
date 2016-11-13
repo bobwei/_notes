@@ -1,4 +1,4 @@
-/* eslint-disable import/no-unresolved, import/extensions */
+/* eslint-disable import/no-unresolved, import/extensions, jsx-a11y/label-has-for */
 import React from 'react';
 import { curry } from 'lodash/function';
 import { template } from 'lodash/string';
@@ -10,6 +10,7 @@ import withState from 'recompose/withState';
 import { execute as run, defaultScope } from 'utils/code';
 import codeTemplate from 'raw!./template';
 
+import styles from './index.module.scss';
 import Editor from './editor';
 import Preview from './preview';
 
@@ -18,6 +19,7 @@ const curriedExecute = curry(run, 2);
 
 const CodePlayground = ({
   code, onChange,
+  enableLivePreview, toggleLivePreview,
   mountPointId,
   logs,
 } = {}) => (
@@ -26,6 +28,12 @@ const CodePlayground = ({
       code={code}
       onChange={onChange}
     />
+    <div className={styles.options}>
+      <label>
+        <input type="checkbox" checked={enableLivePreview} onChange={toggleLivePreview} />
+        live preview
+      </label>
+    </div>
     <Preview
       mountPointId={mountPointId}
       logs={logs}
@@ -54,11 +62,17 @@ export default compose(
       code: compiledTemplate({ scope }),
     };
   }),
+  withState('enableLivePreview', 'updateEnableLivePreview', false),
+  withProps(({ updateEnableLivePreview }) => ({
+    toggleLivePreview: () => updateEnableLivePreview(n => !n),
+  })),
   withState('code', 'setCode', ({ code }) => code),
-  withProps(({ execute, setCode }) => ({
+  withProps(({ execute, setCode, enableLivePreview }) => ({
     onChange: (code) => {
       setCode(code);
-      execute(code);
+      if (enableLivePreview) {
+        execute(code);
+      }
     },
   })),
   lifecycle({
