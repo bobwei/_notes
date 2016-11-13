@@ -18,7 +18,7 @@ const compiledTemplate = template(codeTemplate);
 const curriedExecute = curry(run, 2);
 
 const CodePlayground = ({
-  code, onChange,
+  code, onCodeChange,
   enableLivePreview, toggleLivePreview,
   mountPointId,
   logs,
@@ -26,7 +26,7 @@ const CodePlayground = ({
   <div>
     <Editor
       code={code}
-      onChange={onChange}
+      onCodeChange={onCodeChange}
     />
     <div className={styles.options}>
       <label>
@@ -68,7 +68,7 @@ export default compose(
   })),
   withState('code', 'setCode', ({ code }) => code),
   withProps(({ execute, setCode, enableLivePreview }) => ({
-    onChange: (code) => {
+    onCodeChange: (code) => {
       setCode(code);
       if (enableLivePreview) {
         execute(code);

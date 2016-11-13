@@ -15,19 +15,19 @@ if (canUseDOM) {
 }
 
 const Editor = ({
-  codemirrorOptions, code, onChange,
+  codemirrorOptions, code, onCodeChange,
 } = {}) => (
   <Codemirror
     options={codemirrorOptions}
     value={code}
-    onChange={onChange}
+    onChange={onCodeChange}
   />
 );
 
 Editor.propTypes = {
   codemirrorOptions: React.PropTypes.object,
   code: React.PropTypes.string,
-  onChange: React.PropTypes.func,
+  onCodeChange: React.PropTypes.func,
 };
 
 Editor.defaultProps = {
@@ -41,7 +41,7 @@ Editor.defaultProps = {
 };
 
 export default compose(
-  withProps(({ onChange }) => ({
-    onChange: throttle(onChange, 1000),
+  withProps(({ onCodeChange }) => ({
+    onCodeChange: throttle(onCodeChange, 1000),
   })),
 )(Editor);
