@@ -17,11 +17,13 @@ const compiledTemplate = template(codeTemplate);
 const curriedExecute = curry(run, 2);
 
 const CodePlayground = ({
-  codeInitialValue, mountPointId, execute, logs,
+  code, execute,
+  mountPointId,
+  logs,
 } = {}) => (
   <div>
     <Editor
-      codeInitialValue={codeInitialValue}
+      code={code}
       execute={execute}
     />
     <Preview
@@ -49,7 +51,7 @@ export default compose(
     return {
       mountPointId,
       execute: curriedExecute(scope),
-      codeInitialValue: compiledTemplate({ scope }),
+      code: compiledTemplate({ scope }),
     };
   }),
   lifecycle({

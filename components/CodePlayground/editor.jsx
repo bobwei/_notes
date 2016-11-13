@@ -18,13 +18,13 @@ if (canUseDOM) {
 }
 
 const Editor = ({
-  codemirrorOptions, codeInitialValue, execute,
+  codemirrorOptions, code, execute,
   enableLivePreview, toggleLivePreview,
 } = {}) => (
   <div>
     <Codemirror
       options={codemirrorOptions}
-      value={codeInitialValue}
+      value={code}
       onChange={execute}
     />
     <div className={styles.options}>
@@ -38,7 +38,7 @@ const Editor = ({
 
 Editor.propTypes = {
   codemirrorOptions: React.PropTypes.object,
-  codeInitialValue: React.PropTypes.string,
+  code: React.PropTypes.string,
   execute: React.PropTypes.func,
   enableLivePreview: React.PropTypes.bool,
   toggleLivePreview: React.PropTypes.func,
