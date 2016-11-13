@@ -25,7 +25,7 @@ const Editor = ({
     <Codemirror
       options={codemirrorOptions}
       value={codeInitialValue}
-      onChange={throttle(execute, 1000)}
+      onChange={execute}
     />
     <div className={styles.options}>
       <label>
@@ -46,6 +46,9 @@ Editor.propTypes = {
 
 export default compose(
   onlyUpdateForKeys(['codemirrorOptions', 'codeInitialValue']),
+  withProps(({ execute }) => ({
+    execute: throttle(execute, 1000),
+  })),
   withState('enableLivePreview', 'updateEnableLivePreview', false),
   withProps(({ updateEnableLivePreview }) => ({
     toggleLivePreview: () => updateEnableLivePreview(n => !n),
