@@ -4,7 +4,6 @@ import { curry } from 'lodash/function';
 import { template } from 'lodash/string';
 import compose from 'recompose/compose';
 import lifecycle from 'recompose/lifecycle';
-import defaultProps from 'recompose/defaultProps';
 import withProps from 'recompose/withProps';
 import withState from 'recompose/withState';
 
@@ -18,12 +17,11 @@ const compiledTemplate = template(codeTemplate);
 const curriedExecute = curry(run, 2);
 
 const CodePlayground = ({
-  codeInitialValue, codemirrorOptions, mountPointId, execute, logs,
+  codeInitialValue, mountPointId, execute, logs,
 } = {}) => (
   <div>
     <Editor
       codeInitialValue={codeInitialValue}
-      codemirrorOptions={codemirrorOptions}
       execute={execute}
     />
     <Preview
@@ -34,15 +32,6 @@ const CodePlayground = ({
 );
 
 export default compose(
-  defaultProps({
-    codemirrorOptions: {
-      lineNumbers: true,
-      mode: 'javascript',
-      theme: 'solarized',
-      tabSize: 2,
-      autofocus: true,
-    },
-  }),
   withProps(() => ({
     mountPointId: String(Math.random()),
   })),

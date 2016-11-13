@@ -44,6 +44,16 @@ Editor.propTypes = {
   toggleLivePreview: React.PropTypes.func,
 };
 
+Editor.defaultProps = {
+  codemirrorOptions: {
+    lineNumbers: true,
+    mode: 'javascript',
+    theme: 'solarized',
+    tabSize: 2,
+    autofocus: true,
+  },
+};
+
 export default compose(
   onlyUpdateForKeys(['codemirrorOptions', 'codeInitialValue']),
   withProps(({ execute }) => ({
