@@ -20,4 +20,9 @@
 
 .options {
   padding: 5px 0;
+
+  label {
+    cursor: pointer;
+    user-select: none;
+  }
 }
