@@ -67,12 +67,19 @@ export default compose(
     toggleLivePreview: () => updateEnableLivePreview(n => !n),
   })),
   withState('code', 'setCode', ({ code }) => code),
-  withProps(({ execute, setCode, enableLivePreview }) => ({
-    onCodeChange: (code) => {
-      setCode(code);
+  withProps(({ execute, setCode, enableLivePreview, code, toggleLivePreview }) => ({
+    onCodeChange(val) {
+      setCode(val);
       if (enableLivePreview) {
+        execute(val);
+      }
+    },
+    toggleLivePreview() {
+      const nextNnableLivePreview = !enableLivePreview;
+      if (nextNnableLivePreview) {
         execute(code);
       }
+      toggleLivePreview();
     },
   })),
   lifecycle({
